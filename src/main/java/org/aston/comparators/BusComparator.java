@@ -6,24 +6,16 @@ import java.util.Comparator;
 public class BusComparator implements Comparator<Bus> {
     @Override
     public int compare(Bus b1, Bus b2){
-        if(b1.getNumber().compareTo(b2.getNumber()) < 0) {
-            return -1;
-        } else if(b1.getNumber().compareTo(b2.getNumber()) == 0) {
-            if(b1.getModel().compareTo(b2.getModel()) < 0) {
-                return -1;
-            } else if(b1.getModel().compareTo(b2.getModel()) == 0) {
-                if(b1.getMileage() < b2.getMileage()){
-                    return -1;
-                } else if(b1.getMileage() == b2.getMileage()){
-                    return 0;
-                } else {
-                    return 1;
-                }
-            } else {
-                return 1;
-            }
-        } else {
-            return 1;
+        int numberComparison = b1.getNumber().compareTo(b2.getNumber());
+        if (numberComparison != 0) {
+            return numberComparison;
         }
+
+        int modelComparison = b1.getModel().compareTo(b2.getModel());
+        if (modelComparison != 0) {
+            return modelComparison;
+        }
+
+        return Integer.compare(b1.getMileage(), b2.getMileage());
     }
 }
