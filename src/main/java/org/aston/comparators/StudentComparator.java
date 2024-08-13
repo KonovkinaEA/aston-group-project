@@ -1,4 +1,4 @@
-package org.aston.programcomparators;
+package org.aston.comparators;
 
 import org.aston.model.Student;
 import java.util.Comparator;
