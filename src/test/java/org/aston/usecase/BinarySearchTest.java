@@ -14,24 +14,24 @@ public class BinarySearchTest {
   @BeforeAll
   public static void init() {
     List<Bus> sortedList = new ArrayList<>();
-    Bus bus = new Bus.Builder()
-        .setNumber("211-NDJ")
-        .setModel("Wakd")
-        .setMileage(203)
-        .build();
     Bus bus0 = new Bus.Builder()
         .setNumber("123-ABC")
         .setModel("Volvo")
         .setMileage(200)
         .build();
     Bus bus1 = new Bus.Builder()
+        .setNumber("211-NDJ")
+        .setModel("Wakd")
+        .setMileage(203)
+        .build();
+    Bus bus2 = new Bus.Builder()
         .setNumber("231-MVW")
         .setModel("Cam")
         .setMileage(100)
         .build();
     sortedList.add(bus0);
-    sortedList.add(bus);
     sortedList.add(bus1);
+    sortedList.add(bus2);
     searchUseCase = new BinarySearchUseCase<>(sortedList);
   }
 
@@ -86,6 +86,6 @@ public class BinarySearchTest {
     sortedList.add(bus1);
     sortedList.add(bus2);
     searchUseCase = new BinarySearchUseCase<>(sortedList);
-    Assertions.assertTrue(searchUseCase.search(busForSearch, busComparator) < 0);
+    Assertions.assertEquals(0, searchUseCase.search(busForSearch, busComparator));
   }
 }
