@@ -1,31 +1,29 @@
 package org.aston;
 
-import org.aston.model.Bus;
-import org.aston.model.User;
-import org.aston.model.Student;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Bus bus = new Bus.Builder()
-                .setNumber("123-ABC")
-                .setModel("Volvo")
-                .setMileage(50000)
-                .build();
+        Scanner scanner = new Scanner(System.in);
 
-        User user = new User.Builder()
-                .setName("liz(s)a")
-                .setPassword("password123")
-                .setEmail("lizsa@mail.com")
-                .build();
+        boolean run = true;
+        while (run) {
+            System.out.println("Чтобы выбрать следующий шаг, введите соответствующую цифру:");
+            System.out.println("0 - Завершить программу");
+            System.out.println("1 - Ввести исходные данные");
+            // TODO: добавить выборы на сортировку, бин. поиск
 
-        Student student = new Student.Builder()
-                .setGroupNumber("CS-101")
-                .setAverageGrade(4.5)
-                .setRecordBookNumber("RB123456")
-                .build();
-
-        System.out.println(bus);
-        System.out.println(user);
-        System.out.println(student);
+            switch (scanner.nextInt()) {
+                case 0:
+                    run = false;
+                    break;
+                case 1:
+                    System.out.println("Введите количество элементов коллекции (число должно быть больше 0):");
+                    int size = scanner.nextInt();
+                    // TODO: добавить создание массива и заполнения массива
+                    break;
+                // TODO: добавить обработку выборов на сортировку и бин. поиск
+            }
+        }
     }
 }
