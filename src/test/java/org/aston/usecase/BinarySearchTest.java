@@ -42,11 +42,7 @@ public class BinarySearchTest {
         .setModel("Cam")
         .setMileage(100)
         .build();
-    Comparator<Bus> busComparator = new Comparator<Bus>() {
-      @Override public int compare(Bus bus, Bus t1) {
-        return bus.getNumber().compareTo(t1.getNumber());
-      }
-    };
+    Comparator<Bus> busComparator = Comparator.comparing(Bus::getNumber);
     Assertions.assertEquals(2, searchUseCase.search(busForSearch, busComparator));
   }
 
@@ -64,6 +60,7 @@ public class BinarySearchTest {
     };
     Assertions.assertTrue(searchUseCase.search(busForSearch, busComparator) < 0);
   }
+
   @Test
   public void testSearchInNotSortedList() {
     Bus busForSearch = new Bus.Builder()
@@ -71,11 +68,7 @@ public class BinarySearchTest {
         .setModel("Cam")
         .setMileage(100)
         .build();
-    Comparator<Bus> busComparator = new Comparator<Bus>() {
-      @Override public int compare(Bus bus, Bus t1) {
-        return bus.getNumber().compareTo(t1.getNumber());
-      }
-    };
+    Comparator<Bus> busComparator = Comparator.comparing(Bus::getNumber);
 
     List<Bus> sortedList = new ArrayList<>();
     Bus bus0 = new Bus.Builder()
