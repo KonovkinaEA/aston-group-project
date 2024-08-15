@@ -1,5 +1,8 @@
 package org.aston;
 
+import org.aston.RederFile.ReaderFiles;
+import org.aston.model.*;
+
 import java.util.Scanner;
 
 public class Main {
@@ -20,6 +23,18 @@ public class Main {
                 case 1:
                     System.out.println("Введите количество элементов коллекции (число должно быть больше 0):");
                     int size = scanner.nextInt();
+
+                    System.out.println("2 - заполнить массив из фала");
+                    switch (scanner.nextInt()) {
+                        case 2:
+                            System.out.println("В файле нужно, чтобы каждый класс был на новой строке, а строка выглядела:");
+                            System.out.println("[Bus/Student/User] = Данные класса,через запятую");
+                            System.out.println("Введите путь до файла");
+                            ReaderFiles<User> read = new ReaderFiles();
+                            User user = new User.Builder().build();
+                            read.ReadFiles(user, scanner.next());//TODO: переменная куда записовать данные
+                            break;
+                    }
                     // TODO: добавить создание массива и заполнения массива
                     break;
                 // TODO: добавить обработку выборов на сортировку и бин. поиск
