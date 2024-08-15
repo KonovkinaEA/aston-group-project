@@ -1,6 +1,6 @@
 package org.aston;
 
-import org.aston.RederFile.ReaderFiles;
+import org.aston.reader_file.ReaderFiles;
 import org.aston.model.*;
 
 import java.util.Scanner;

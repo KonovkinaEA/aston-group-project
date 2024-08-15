@@ -1,11 +1,11 @@
-package org.aston.RederFile;
+package org.aston.reader_file;
 
 
 import java.io.*;
 import java.util.*;
 
 import org.aston.model.*;
-import org.aston.RederFile.Parse.*;
+import org.aston.reader_file.parse.*;
 
 public class ReaderFiles<T>  {
 
