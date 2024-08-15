@@ -1,4 +1,4 @@
-package org.aston.RederFile.Parse;
+package org.aston.reader_file.parse;
 import org.aston.model.Bus;
 
 public class BusParser implements RecordParser<Bus> {

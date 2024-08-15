@@ -1,6 +1,6 @@
 package org.aston;
 
-import org.aston.RederFile.ReaderFiles;
+import org.aston.reader_file.ReaderFiles;
 import org.aston.model.*;
 
 import java.util.Scanner;
@@ -31,8 +31,7 @@ public class Main {
                             System.out.println("[Bus/Student/User] = Данные класса,через запятую");
                             System.out.println("Введите путь до файла");
                             ReaderFiles<User> read = new ReaderFiles();
-                            User user = new User.Builder().build();
-                            read.ReadFiles(user, scanner.next());//TODO: переменная куда записовать данные
+                            read.readFiles(User.class, scanner.next());//TODO: переменная куда записовать данные
                             break;
                     }
                     // TODO: добавить создание массива и заполнения массива
