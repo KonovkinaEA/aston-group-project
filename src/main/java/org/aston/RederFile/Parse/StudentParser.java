@@ -9,6 +9,7 @@ public class StudentParser implements RecordParser<Student> {
 
     @Override
     public Student parse(String line) {
+        line =	line.replace("Student = ","");
         String[] parts = line.split(",");
         return new Student.Builder()
                 .setGroupNumber(parts[0].trim())

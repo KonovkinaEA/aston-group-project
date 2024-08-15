@@ -9,6 +9,7 @@ public class BusParser implements RecordParser<Bus> {
 
     @Override
     public Bus parse(String line) {
+        line =	line.replace("Bus = ","");
         String[] parts = line.split(",");
         return new Bus.Builder()
                 .setNumber(parts[0].trim())
