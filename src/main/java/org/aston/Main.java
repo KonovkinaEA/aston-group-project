@@ -32,7 +32,7 @@ public class Main {
                 case 3:
                     System.out.println("Введите количество элементов коллекции (число должно быть больше 0):");
                     int limit = scanner.nextInt();
-                    System.out.println(new RandomCreator().getRandomList(limit));
+                    System.out.println(RandomCreator.getRandomList(limit));
                     break;
 
                 // TODO: добавить обработку выборов на сортировку и бин. поиск

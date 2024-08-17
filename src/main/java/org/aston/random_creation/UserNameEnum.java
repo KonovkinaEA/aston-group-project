@@ -9,7 +9,7 @@ public enum UserNameEnum {
     URIS("Uris"), HANLON("Hanlon"), KASPBRAK("Kaspbrak"), BOWERS("Bowers"), HOCKSTETTER("Hockstetter")
     ;
 
-    private String name;
+    private final String name;
 
     UserNameEnum(String name) {
         this.name = name;
