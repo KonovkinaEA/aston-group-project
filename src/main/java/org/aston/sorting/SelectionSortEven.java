@@ -53,6 +53,9 @@ public class SelectionSortEven<T> implements Sorting<T> {
                     continue;
 
                 for(int j = i + 1; j < n; j++) {
+                    if(oddIndexes[j])
+                        continue;
+
                     T comparingElement = sorted.get(j);
                     Field comparingElementFiled = comparingElement.getClass().getDeclaredField(fieldName);
                     numericField = Integer.parseInt(comparingElementFiled.get(comparingElement).toString());
