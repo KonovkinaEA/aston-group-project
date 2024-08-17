@@ -14,6 +14,7 @@ import org.aston.sorting.SelectionSort;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -92,7 +93,7 @@ public class Main {
                         break;
                     case 5:
                         System.out.println("Вы выбрали сортировку. Производится сортировка коллекции...");
-                        Comparator<?> comparator = switch (tCLass){
+                        Comparator<BaseEntity> comparator = switch (tCLass){
                             case "Bus" -> new BusNumComparator();
                             case "Student" -> new StudentNumComparator();
                             case "User" -> new UserComparator();
