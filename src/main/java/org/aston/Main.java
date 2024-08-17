@@ -3,6 +3,7 @@ package org.aston;
 import org.aston.creation.file.ReaderFiles;
 import org.aston.creation.manual.ManualBuilder;
 import org.aston.creation.random.RandomCreator;
+import org.aston.model.BaseEntity;
 import org.aston.model.Bus;
 import org.aston.model.Student;
 import org.aston.model.User;
@@ -15,79 +16,81 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ManualBuilder manualBuilder = new ManualBuilder(scanner);
-        List<Bus> buses = new ArrayList<>();
-        List<Student> students = new ArrayList<>();
-        List<User> users = new ArrayList<>();
+
+        String tCLass = "";
+        List<BaseEntity> list = new ArrayList<>();
 
         boolean run = true;
         while (run) {
             try {
                 System.out.println("""
-                            *************************** МЕНЮ ***************************
-                            Чтобы выбрать следующий шаг, введите соответствующую цифру:
-                            0 - Завершить программу
-                            1 - Ввести исходные данные
-                            2 - Заполните данные вручную
-                            3 - Заполнить массив из фала      
-                            4 - Создание случайного массива заданной величины
-                            *************************************************************
+                        *************************** МЕНЮ ***************************
+                        Чтобы выбрать следующий шаг, введите соответствующую цифру:
+                        0 - Завершить программу
+                        1 - Задать базовые параметры коллекции
+                        2 - Заполнить коллекцю вручную
+                        3 - Заполнить коллекцю данными из файла
+                        4 - Заполнить коллекцию случайно сгенерированными данными
+                        5 - Отсортировать коллекцию
+                        6 - Найти элемент в отсортированной коллекции
+                        ************************************************************
                         """);
-
-                // TODO: добавить выборы на сортировку, бин. поиск
 
                 switch (scanner.nextInt()) {
                     case 0:
                         run = false;
                         break;
                     case 1:
-                        System.out.println("Введите количество элементов коллекции (число должно быть больше 0):");
-                        int size = scanner.nextInt();
-                        // TODO: добавить создание массива и заполнения массива
+                        System.out.println("""
+                                Выберете класс объектов коллекции:
+                                1 - Bus
+                                2 - Student
+                                3 - User
+                                """);
+                        tCLass = switch (scanner.nextInt()) {
+                            case 1 -> "Bus";
+                            case 2 -> "Student";
+                            case 3 -> "User";
+                            default -> tCLass;
+                        };
                         break;
                     case 2:
-                        System.out.println("Введите тип объекта, который вы хотите создать: Автобус, Студент, Пользователь.");
-                        String type = scanner.nextLine();
+                        System.out.println("Введите количество элементов коллекции:");
+                        int size = scanner.nextInt();
 
-                        switch (type) {
-                            case "Автобус":
-                                Bus bus = manualBuilder.createBus(scanner);
-                                if (bus != null) {
-                                    buses.add(bus);
-                                }
-                                break;
-                            case "Студент":
-                                Student student = manualBuilder.createStudent(scanner);
-                                if (student != null) {
-                                    students.add(student);
-                                }
-                                break;
-                            case "Пользователь":
-                                User user = manualBuilder.createUser(scanner);
-                                if (user != null) {
-                                    users.add(user);
-                                }
-                                break;
-                            default:
-                                System.err.println("Неверный тип.");
-                                break;
+                        for (int i = 0; i < size; i++) {
+                            switch (tCLass) {
+                                case "Bus":
+                                    Bus bus = manualBuilder.createBus(scanner);
+                                    if (bus != null) list.add(bus);
+                                    break;
+                                case "Student":
+                                    Student student = manualBuilder.createStudent(scanner);
+                                    if (student != null) list.add(student);
+                                    break;
+                                case "User":
+                                    User user = manualBuilder.createUser(scanner);
+                                    if (user != null) list.add(user);
+                                    break;
+                            }
                         }
-
                     case 3:
                         System.out.println("В файле нужно, чтобы каждый класс был на новой строке, а строка выглядела:");
-                        System.out.println("[Bus/Student/User] = Данные класса,через запятую");
-                        System.out.println("Введите путь до файла");
-                        ReaderFiles<User> read = new ReaderFiles();
-                        read.readFiles(User.class, scanner.next());//TODO: переменная куда записовать данные
+                        System.out.println("[Bus/Student/User] = Данные класса через запятую");
+                        System.out.println("Пример: Student = 2024,4.5,45180");
+                        System.out.println("Введите путь до файла:");
+
+                        ReaderFiles read = new ReaderFiles();
+                        list = (List<BaseEntity>) read.readFiles(tCLass, scanner.next());
                     case 4:
                         System.out.println("Введите количество элементов коллекции (число должно быть больше 0):");
                         int limit = scanner.nextInt();
-                        System.out.println(new RandomCreator().getRandomList(limit));
+                        list = (List<BaseEntity>) new RandomCreator().getRandomList(limit);
                         break;
 
                     // TODO: добавить обработку выборов на сортировку и бин. поиск
-                    
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.err.println("Неверный тип.");
                 scanner.nextLine();
             }

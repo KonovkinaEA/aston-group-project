@@ -1,6 +1,5 @@
 package org.aston.creation.file;
 
-
 import org.aston.creation.file.parsers.BusParser;
 import org.aston.creation.file.parsers.RecordParser;
 import org.aston.creation.file.parsers.StudentParser;
@@ -16,25 +15,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
-public class ReaderFiles<T> {
+public class ReaderFiles {
 
-    private final Map<Class<?>, RecordParser<?>> parsers;
+    private final Map<String, Function<String, List<?>>> parsers;
 
     public ReaderFiles() {
         parsers = new HashMap<>();
-        parsers.put(Bus.class, new BusParser());
-        parsers.put(Student.class, new StudentParser());
-        parsers.put(User.class, new UserParser());
+        parsers.put(Bus.class.getName(), filePath -> parseFile(new BusParser(), filePath));
+        parsers.put(Student.class.getName(), filePath -> parseFile(new StudentParser(), filePath));
+        parsers.put(User.class.getName(), filePath -> parseFile(new UserParser(), filePath));
     }
 
-    public List<T> readFiles(Class clazz, String filePath) {
-        List<T> list = new ArrayList<>();
-
-        RecordParser<T> parser = (RecordParser<T>) parsers.get(clazz);
-        if (parser == null) {
-            throw new IllegalArgumentException("No parser found for class: " + clazz.getName());
+    public List<?> readFiles(String clazzName, String filePath) {
+        Function<String, List<?>> parserFunction = parsers.get(clazzName);
+        if (parserFunction == null) {
+            throw new IllegalArgumentException("No parser found for class: " + clazzName);
         }
+
+        return parserFunction.apply(filePath);
+    }
+
+    private <T> List<T> parseFile(RecordParser<T> parser, String filePath) {
+        List<T> list = new ArrayList<>();
 
         try {
             Files.lines(Paths.get(filePath))

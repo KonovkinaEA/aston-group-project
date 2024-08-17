@@ -1,4 +1,5 @@
 package org.aston.creation.file.parsers;
+
 import org.aston.model.User;
 
 public class UserParser implements RecordParser<User> {
@@ -9,7 +10,7 @@ public class UserParser implements RecordParser<User> {
 
     @Override
     public User parse(String line) {
-        line =	line.replace("User = ","");
+        line = line.replace("User = ", "");
         String[] parts = line.split(",");
         return new User.Builder()
                 .setName(parts[0].trim())
