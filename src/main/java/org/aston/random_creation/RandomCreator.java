@@ -14,15 +14,15 @@ public class RandomCreator {
         switch (choice) {
             case 1:
                 randomBuilderInterface = new BusRandomBuilder();
-                RANDOM_STRATEGY.choiceStrategy(new BusRandomBuilder(), limit);
+                RANDOM_STRATEGY.choiceStrategy(new BusRandomBuilder());
                 break;
             case 2 :
                 randomBuilderInterface = new StudentRandomBuilder();
-                RANDOM_STRATEGY.choiceStrategy(new StudentRandomBuilder(), limit);
+                RANDOM_STRATEGY.choiceStrategy(new StudentRandomBuilder());
                 break;
             case 3 :
                 randomBuilderInterface = new UserRandomBuilder();
-                RANDOM_STRATEGY.choiceStrategy(new UserRandomBuilder(), limit);
+                RANDOM_STRATEGY.choiceStrategy(new UserRandomBuilder());
                 break;
         }
         return randomBuilderInterface.createRandomList(limit);

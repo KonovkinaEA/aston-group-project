@@ -1,9 +1,10 @@
 package org.aston.random_creation;
 
 public class RandomStrategy {
+    RandomBuilderInterface randomBuilderInterface;
 
-    public void choiceStrategy(RandomBuilderInterface randomBuilderInterface, int limit){
-        randomBuilderInterface.createRandomList(limit);
+    public void choiceStrategy(RandomBuilderInterface randomBuilderInterface){
+        this.randomBuilderInterface = randomBuilderInterface;
     }
 
 }
