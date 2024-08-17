@@ -1,67 +1,97 @@
 package org.aston;
 
+import org.aston.manual_creation.ManualBuilder;
 import org.aston.model.Bus;
-import org.aston.model.User;
 import org.aston.model.Student;
-import org.aston.sorting.*;
-import org.aston.comparators.*;
+import org.aston.model.User;
+import org.aston.random_creation.RandomCreator;
+import org.aston.reader_file.ReaderFiles;
+import org.aston.model.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Bus bus = new Bus.Builder()
-                .setNumber("123-ABC")
-                .setModel("Volvo")
-                .setMileage(50000)
-                .build();
+        Scanner scanner = new Scanner(System.in);
+        ManualBuilder manualBuilder = new ManualBuilder(scanner);
+        List<Bus> buses = new ArrayList<>();
+        List<Student> students = new ArrayList<>();
+        List<User> users = new ArrayList<>();
 
+        boolean run = true;
+        while (run) {
+            try {
+                System.out.println("""
+                            *************************** МЕНЮ ***************************
+                            Чтобы выбрать следующий шаг, введите соответствующую цифру:
+                            0 - Завершить программу
+                            1 - Ввести исходные данные
+                            2 - Заполните данные вручную
+                            3 - Заполнить массив из фала      
+                            4 - Создание случайного массива заданной величины
+                            *************************************************************
+                        """);
 
-        User user = new User.Builder()
-                .setName("liz(s)a")
-                .setPassword("password123")
-                .setEmail("lizsa@mail.com")
-                .build();
+                // TODO: добавить выборы на сортировку, бин. поиск
 
-        Student student = new Student.Builder()
-                .setGroupNumber("CS-101")
-                .setAverageGrade(4.5)
-                .setRecordBookNumber("RB123456")
-                .build();
+                switch (scanner.nextInt()) {
+                    case 0:
+                        run = false;
+                        break;
+                    case 1:
+                        System.out.println("Введите количество элементов коллекции (число должно быть больше 0):");
+                        int size = scanner.nextInt();
+                        // TODO: добавить создание массива и заполнения массива
+                        break;
+                    case 2:
+                        System.out.println("Введите тип объекта, который вы хотите создать: Автобус, Студент, Пользователь.");
+                        String type = scanner.nextLine();
 
-        // Check algorithms work
-        Bus bus1 = new Bus.Builder()
-                .setNumber("123-ABC")
-                .setModel("Volvo")
-                .setMileage(50000)
-                .build();
+                        switch (type) {
+                            case "Автобус":
+                                Bus bus = manualBuilder.createBus(scanner);
+                                if (bus != null) {
+                                    buses.add(bus);
+                                }
+                                break;
+                            case "Студент":
+                                Student student = manualBuilder.createStudent(scanner);
+                                if (student != null) {
+                                    students.add(student);
+                                }
+                                break;
+                            case "Пользователь":
+                                User user = manualBuilder.createUser(scanner);
+                                if (user != null) {
+                                    users.add(user);
+                                }
+                                break;
+                            default:
+                                System.err.println("Неверный тип.");
+                                break;
+                        }
 
-        Bus bus2 = new Bus.Builder()
-                .setNumber("123-ABC")
-                .setModel("Volvo")
-                .setMileage(900000)
-                .build();
+                    case 3:
+                        System.out.println("В файле нужно, чтобы каждый класс был на новой строке, а строка выглядела:");
+                        System.out.println("[Bus/Student/User] = Данные класса,через запятую");
+                        System.out.println("Введите путь до файла");
+                        ReaderFiles<User> read = new ReaderFiles();
+                        read.readFiles(User.class, scanner.next());//TODO: переменная куда записовать данные
+                    case 4:
+                        System.out.println("Введите количество элементов коллекции (число должно быть больше 0):");
+                        int limit = scanner.nextInt();
+                        System.out.println(new RandomCreator().getRandomList(limit));
+                        break;
 
-        Bus bus3 = new Bus.Builder()
-                .setNumber("123-ABC")
-                .setModel("Volvo")
-                .setMileage(1000)
-                .build();
-
-        List<Bus> list = new ArrayList<>();
-        list.add(bus1);
-        list.add(bus2);
-        list.add(bus3);
-
-        Sorter<Bus> sorter = new Sorter<Bus>(new SelectionSort<Bus>());
-        List<Bus> result = sorter.sort(list, new BusComparator());
-        System.out.println(Arrays.toString(result.toArray()));
-
-//        System.out.println(bus);
-//        System.out.println(user);
-//        System.out.println(student);
+                    // TODO: добавить обработку выборов на сортировку и бин. поиск
+                    
+                }
+            } catch (Exception e){
+                System.err.println("Неверный тип.");
+                scanner.nextLine()
+            }
+        }
     }
 }
