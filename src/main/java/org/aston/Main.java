@@ -7,6 +7,9 @@ import org.aston.model.BaseEntity;
 import org.aston.model.Bus;
 import org.aston.model.Student;
 import org.aston.model.User;
+import org.aston.sorting.comparators.*;
+import org.aston.sorting.Sorter;
+import org.aston.sorting.SelectionSort;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +90,18 @@ public class Main {
                         int limit = scanner.nextInt();
                         list = (List<BaseEntity>) new RandomCreator().getRandomList(limit);
                         break;
+                    case 5:
+                        System.out.println("Вы выбрали сортировку. Производится сортировка коллекции...");
+                        Comparator<?> comparator = switch (tCLass){
+                            case "Bus" -> new BusNumComparator();
+                            case "Student" -> new StudentNumComparator();
+                            case "User" -> new UserComparator();
+                            default -> throw new IllegalStateException("Unexpected value: " + tCLass);
+                        };
+                        Sorter<BaseEntity> sorter = new Sorter<BaseEntity>(new SelectionSort<BaseEntity>());
+                        List<BaseEntity> sortedList = sorter.sort(list, comparator);
+                        System.out.println("Отсортированная коллекция:");
+                        System.out.println(Arrays.toString(sortedList.toArray()));
 
                     // TODO: добавить обработку выборов на сортировку и бин. поиск
                 }
