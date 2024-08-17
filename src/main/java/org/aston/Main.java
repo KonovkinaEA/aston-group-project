@@ -1,8 +1,8 @@
 package org.aston;
 
+import org.aston.reader_file.ReaderFiles;
 import org.aston.model.User;
 import org.aston.random_creation.RandomCreator;
-import org.aston.reader_file.ReaderFiles;
 
 import java.util.Scanner;
 
