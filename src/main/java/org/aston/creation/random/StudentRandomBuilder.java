@@ -1,7 +1,6 @@
-package org.aston.random_creation;
+package org.aston.creation.random;
 
 import org.aston.model.Student;
-
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

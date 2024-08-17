@@ -1,6 +1,7 @@
-package org.aston.comparators;
+package org.aston.sorting.comparators;
 
 import org.aston.model.Bus;
+
 import java.util.Comparator;
 
 public class BusComparator implements Comparator<Bus> {

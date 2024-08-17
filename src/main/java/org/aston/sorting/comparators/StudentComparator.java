@@ -1,6 +1,7 @@
-package org.aston.comparators;
+package org.aston.sorting.comparators;
 
 import org.aston.model.Student;
+
 import java.util.Comparator;
 
 class StudentComparator implements Comparator<Student> {

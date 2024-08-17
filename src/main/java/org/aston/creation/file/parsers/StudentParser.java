@@ -1,4 +1,5 @@
-package org.aston.reader_file.parse;
+package org.aston.creation.file.parsers;
+
 import org.aston.model.Student;
 
 public class StudentParser implements RecordParser<Student> {
@@ -9,7 +10,7 @@ public class StudentParser implements RecordParser<Student> {
 
     @Override
     public Student parse(String line) {
-        line =	line.replace("Student = ","");
+        line = line.replace("Student = ", "");
         String[] parts = line.split(",");
         return new Student.Builder()
                 .setGroupNumber(parts[0].trim())

@@ -1,4 +1,5 @@
-package org.aston.reader_file.parse;
+package org.aston.creation.file.parsers;
+
 import org.aston.model.Bus;
 
 public class BusParser implements RecordParser<Bus> {
@@ -9,7 +10,7 @@ public class BusParser implements RecordParser<Bus> {
 
     @Override
     public Bus parse(String line) {
-        line =	line.replace("Bus = ","");
+        line = line.replace("Bus = ", "");
         String[] parts = line.split(",");
         return new Bus.Builder()
                 .setNumber(parts[0].trim())
