@@ -20,63 +20,68 @@ public class Main {
 
         boolean run = true;
         while (run) {
-            System.out.println("""
-                        *************************** МЕНЮ ***************************
-                        Чтобы выбрать следующий шаг, введите соответствующую цифру:
-                        0 - Завершить программу
-                        1 - Ввести исходные данные
-                        2 - Заполните данные вручную
-                        3 - Создание случайного массива заданной величины
-                        *************************************************************
-                    """);
+            try {
+                System.out.println("""
+                            *************************** МЕНЮ ***************************
+                            Чтобы выбрать следующий шаг, введите соответствующую цифру:
+                            0 - Завершить программу
+                            1 - Ввести исходные данные
+                            2 - Заполните данные вручную
+                            3 - Создание случайного массива заданной величины
+                            *************************************************************
+                        """);
 
-            // TODO: добавить выборы на сортировку, бин. поиск
+                // TODO: добавить выборы на сортировку, бин. поиск
 
-            switch (scanner.nextInt()) {
-                case 0:
-                    run = false;
-                    break;
-                case 1:
-                    System.out.println("Введите количество элементов коллекции (число должно быть больше 0):");
-                    int size = scanner.nextInt();
-                    // TODO: добавить создание массива и заполнения массива
-                    break;
-                case 2:
-                    System.out.println("Введите тип объекта, который вы хотите создать: Автобус, Студент, Пользователь.");
-                    String type = scanner.nextLine();
+                switch (scanner.nextInt()) {
+                    case 0:
+                        run = false;
+                        break;
+                    case 1:
+                        System.out.println("Введите количество элементов коллекции (число должно быть больше 0):");
+                        int size = scanner.nextInt();
+                        // TODO: добавить создание массива и заполнения массива
+                        break;
+                    case 2:
+                        System.out.println("Введите тип объекта, который вы хотите создать: Автобус, Студент, Пользователь.");
+                        String type = scanner.nextLine();
 
-                    switch (type) {
-                        case "Автобус":
-                            Bus bus = manualBuilder.createBus(scanner);
-                            if (bus != null) {
-                                buses.add(bus);
-                            }
-                            break;
-                        case "Студент":
-                            Student student = manualBuilder.createStudent(scanner);
-                            if (student != null) {
-                                students.add(student);
-                            }
-                            break;
-                        case "Пользователь":
-                            User user = manualBuilder.createUser(scanner);
-                            if (user != null) {
-                                users.add(user);
-                            }
-                            break;
-                        default:
-                            System.err.println("Неверный тип.");
-                            break;
-                    }
+                        switch (type) {
+                            case "Автобус":
+                                Bus bus = manualBuilder.createBus(scanner);
+                                if (bus != null) {
+                                    buses.add(bus);
+                                }
+                                break;
+                            case "Студент":
+                                Student student = manualBuilder.createStudent(scanner);
+                                if (student != null) {
+                                    students.add(student);
+                                }
+                                break;
+                            case "Пользователь":
+                                User user = manualBuilder.createUser(scanner);
+                                if (user != null) {
+                                    users.add(user);
+                                }
+                                break;
+                            default:
+                                System.err.println("Неверный тип.");
+                                break;
+                        }
 
 
-                case 3:
-                    System.out.println("Введите количество элементов коллекции (число должно быть больше 0):");
-                    int limit = scanner.nextInt();
-                    System.out.println(new RandomCreator().getRandomList(limit));
-                    break;
+                    case 3:
+                        System.out.println("Введите количество элементов коллекции (число должно быть больше 0):");
+                        int limit = scanner.nextInt();
+                        System.out.println(new RandomCreator().getRandomList(limit));
+                        break;
 
-                // TODO: добавить обработку выборов на сортировку и бин. поиск
+                    // TODO: добавить обработку выборов на сортировку и бин. поиск
+                }
+            } catch (Exception e){
+                System.err.println("Неверный тип.");
+                scanner.nextLine();
             }
         }
     }
