@@ -5,6 +5,8 @@ import org.aston.model.Bus;
 import org.aston.model.Student;
 import org.aston.model.User;
 import org.aston.random_creation.RandomCreator;
+import org.aston.reader_file.ReaderFiles;
+import org.aston.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,8 @@ public class Main {
                             0 - Завершить программу
                             1 - Ввести исходные данные
                             2 - Заполните данные вручную
-                            3 - Создание случайного массива заданной величины
+                            3 - Заполнить массив из фала      
+                            4 - Создание случайного массива заданной величины
                             *************************************************************
                         """);
 
@@ -70,18 +73,24 @@ public class Main {
                                 break;
                         }
 
-
                     case 3:
+                        System.out.println("В файле нужно, чтобы каждый класс был на новой строке, а строка выглядела:");
+                        System.out.println("[Bus/Student/User] = Данные класса,через запятую");
+                        System.out.println("Введите путь до файла");
+                        ReaderFiles<User> read = new ReaderFiles();
+                        read.readFiles(User.class, scanner.next());//TODO: переменная куда записовать данные
+                    case 4:
                         System.out.println("Введите количество элементов коллекции (число должно быть больше 0):");
                         int limit = scanner.nextInt();
                         System.out.println(new RandomCreator().getRandomList(limit));
                         break;
 
                     // TODO: добавить обработку выборов на сортировку и бин. поиск
+                    
                 }
             } catch (Exception e){
                 System.err.println("Неверный тип.");
-                scanner.nextLine();
+                scanner.nextLine()
             }
         }
     }
