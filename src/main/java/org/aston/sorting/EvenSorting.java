@@ -9,6 +9,7 @@ public class EvenSorting<T> implements Sorting<T> {
     @Override
     public List<T> sort(List<T> arr, Comparator<T> comparator) {
         List<T> sorted = new ArrayList<T>(arr);
+        //TODO implement sorting algorithm for even numbers.
 //        int n = sorted.size();
 //        for(int i = 0; i < n - 1; i++){
 //            int minIdx = i;
