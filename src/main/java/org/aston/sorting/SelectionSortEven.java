@@ -1,12 +1,10 @@
 package org.aston.sorting;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class SelectionSort<T> extends SortAlgorithm<T>{
-    public SelectionSort(Sorting<T> sortingType) {
+public class SelectionSortEven<T> extends SortAlgorithm<T>{
+    public SelectionSortEven(Sorting<T> sortingType){
         super(sortingType);
     }
 
