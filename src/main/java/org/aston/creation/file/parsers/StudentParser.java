@@ -1,4 +1,4 @@
-package org.aston.reader_file.parse;
+package org.aston.creation.file.parsers;
 import org.aston.model.Student;
 
 public class StudentParser implements RecordParser<Student> {

@@ -1,4 +1,4 @@
-package org.aston.manual_creation;
+package org.aston.creation.manual;
 
 
 

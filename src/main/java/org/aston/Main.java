@@ -1,11 +1,10 @@
 package org.aston;
 
-import org.aston.manual_creation.ManualBuilder;
+import org.aston.creation.file.ReaderFiles;
+import org.aston.creation.manual.ManualBuilder;
+import org.aston.creation.random.RandomCreator;
 import org.aston.model.Bus;
 import org.aston.model.Student;
-import org.aston.model.User;
-import org.aston.random_creation.RandomCreator;
-import org.aston.reader_file.ReaderFiles;
 import org.aston.model.User;
 
 import java.util.ArrayList;
@@ -90,7 +89,7 @@ public class Main {
                 }
             } catch (Exception e){
                 System.err.println("Неверный тип.");
-                scanner.nextLine()
+                scanner.nextLine();
             }
         }
     }

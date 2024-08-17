@@ -1,4 +1,4 @@
-package org.aston.reader_file.parse;
+package org.aston.creation.file.parsers;
 
 public  interface RecordParser<T> {
     String getPrefix();

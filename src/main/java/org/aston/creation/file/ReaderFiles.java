@@ -1,13 +1,22 @@
-package org.aston.reader_file;
+package org.aston.creation.file;
 
 
-import java.io.*;
+import org.aston.creation.file.parsers.BusParser;
+import org.aston.creation.file.parsers.RecordParser;
+import org.aston.creation.file.parsers.StudentParser;
+import org.aston.creation.file.parsers.UserParser;
+import org.aston.model.Bus;
+import org.aston.model.Student;
+import org.aston.model.User;
+
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.aston.model.*;
-import org.aston.reader_file.parse.*;
 public class ReaderFiles<T> {
 
     private final Map<Class<?>, RecordParser<?>> parsers;
