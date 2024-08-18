@@ -4,6 +4,7 @@ import org.aston.creation.file.FilesReader;
 import org.aston.creation.manual.ManualBuilder;
 import org.aston.creation.random.RandomCreator;
 import org.aston.sorting.Sorter;
+import org.aston.usecase.Search;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,17 +17,17 @@ public class ListManager<T> {
     private final ManualBuilder<T> manualBuilder;
 
     private final Sorter<T> sorter;
+    private final Search<T> search;
 
     private List<T> list;
 
-    public ListManager(RandomCreator<T> randomCreator,
-                       FilesReader<T> filesReader,
-                       ManualBuilder<T> manualBuilder,
-                       Sorter<T> sorter) {
+    public ListManager(RandomCreator<T> randomCreator, FilesReader<T> filesReader, ManualBuilder<T> manualBuilder,
+                       Sorter<T> sorter, Search<T> search) {
         this.randomCreator = randomCreator;
         this.filesReader = filesReader;
         this.manualBuilder = manualBuilder;
         this.sorter = sorter;
+        this.search = search;
         this.list = Collections.emptyList();
     }
 
@@ -61,5 +62,13 @@ public class ListManager<T> {
     public List<T> sort() {
         list = sorter.sort(list);
         return list;
+    }
+
+    public int search(Scanner scanner) {
+        T item = null;
+        while (item == null) {
+            item = manualBuilder.create(scanner);
+        }
+        return search.search(sorter.sort(list), item);
     }
 }
