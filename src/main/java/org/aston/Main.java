@@ -92,11 +92,10 @@ public class Main {
                         default -> throw new InvalidParameterException("Введен номер несуществующего варианта");
                     };
 
-                    //TODO Resolve type matching error
-//                    List<?> sortedList = sorter.sort(manager.getList());
+                    List<?> sortedList = sorter.sort(manager.getList());
 
                     System.out.println("Отсортированная коллекция:");
-//                    System.out.println(Arrays.toString(sortedList.toArray()));
+                    System.out.println(Arrays.toString(sortedList.toArray()));
             }
         }
     }
