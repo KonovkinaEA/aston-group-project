@@ -6,8 +6,15 @@ import org.aston.creation.file.parsers.RecordParser;
 import org.aston.creation.file.parsers.StudentParser;
 import org.aston.creation.file.parsers.UserParser;
 import org.aston.creation.random.*;
+import org.aston.model.*;
+import org.aston.sorting.SelectionSort;
+import org.aston.sorting.Sorter;
+import org.aston.sorting.comparators.*;
 
 import java.security.InvalidParameterException;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
@@ -16,6 +23,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         ListManager<?> manager = null;
+        int classType = -1;
 
         while (true) {
             System.out.print("""
@@ -51,7 +59,8 @@ public class Main {
                             2 - Student
                             3 - User
                             """);
-                    manager = createListManager(scanner.nextInt());
+                    classType = scanner.nextInt();
+                    manager = createListManager(classType);
                     break;
                 case 2:
                     System.out.print("Введите количество элементов коллекции:");
@@ -74,6 +83,20 @@ public class Main {
                         System.out.println("Полученный из файла список:");
                         System.out.println(manager.readListFromFile(path));
                     }
+                case 5:
+                    System.out.println("Вы выбрали сортировку коллекции. Сортировка выполняется... ");
+                    Sorter<?> sorter = switch (classType){
+                        case 1 -> new Sorter<Bus>(new SelectionSort<>(), new BusComparator());
+                        case 2 -> new Sorter<Student>(new SelectionSort<>(), new StudentComparator());
+                        case 3 -> new Sorter<User>(new SelectionSort<>(), new UserComparator());
+                        default -> throw new InvalidParameterException("Введен номер несуществующего варианта");
+                    };
+
+                    //TODO Resolve type matching error
+//                    List<?> sortedList = sorter.sort(manager.getList());
+
+                    System.out.println("Отсортированная коллекция:");
+//                    System.out.println(Arrays.toString(sortedList.toArray()));
             }
         }
     }
