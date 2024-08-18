@@ -1,4 +1,4 @@
-package org.aston.random_creation;
+package org.aston.creation.random;
 
 import java.util.Arrays;
 import java.util.List;

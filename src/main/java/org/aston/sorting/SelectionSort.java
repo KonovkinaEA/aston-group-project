@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class SelectionSort<T> implements Sorting<T>{
+public class SelectionSort<T> implements Sorting<T> {
     @Override
-    public List<T> sort(List<T> arr, Comparator<T> comparator) {
+    public List<T> sort(List<T> arr, Comparator<T> comparator){
         List<T> sorted = new ArrayList<T>(arr);
         int n = sorted.size();
         for(int i = 0; i < n - 1; i++){
