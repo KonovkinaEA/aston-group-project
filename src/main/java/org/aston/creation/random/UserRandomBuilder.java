@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
-class UserRandomBuilder implements RandomBuilderInterface{
+public class UserRandomBuilder implements RandomBuilder<User> {
 
     private static final int ZERO = 0;
     private static final int MIN_LIMIT = 48; // letter 'a' = 97, 'A' = 65
@@ -26,7 +26,7 @@ class UserRandomBuilder implements RandomBuilderInterface{
     }
 
     private static String createUserName(){
-        return USER_NAME.get((int) RandomBuilderInterface.getRandomNumber(USER_NAME.size(), ZERO));
+        return USER_NAME.get((int) RandomBuilder.getRandomNumber(USER_NAME.size(), ZERO));
     }
 
     private static User createUser() {
@@ -35,7 +35,7 @@ class UserRandomBuilder implements RandomBuilderInterface{
         return new User.Builder()
                 .setName(name)
                 .setPassword(createPassword())
-                .setEmail(name + (int)RandomBuilderInterface.getRandomNumber(MAX_EMAIL_NUMBER, ZERO) + "@mail.com")
+                .setEmail(name + (int) RandomBuilder.getRandomNumber(MAX_EMAIL_NUMBER, ZERO) + "@mail.com")
                 .build();
     }
 
