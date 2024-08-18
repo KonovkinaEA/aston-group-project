@@ -7,7 +7,7 @@ import java.math.RoundingMode;
 import java.util.List;
 import java.util.stream.Stream;
 
-class StudentRandomBuilder implements RandomBuilderInterface{
+public class StudentRandomBuilder implements RandomBuilder<Student> {
 
     private static final double MIN_GRADE = 1;
     private static final double MAX_GRADE = 5;
@@ -18,16 +18,16 @@ class StudentRandomBuilder implements RandomBuilderInterface{
 
     private static double createAverageGrade(){
         return BigDecimal
-                .valueOf(RandomBuilderInterface.getRandomNumber(MAX_GRADE, MIN_GRADE))
+                .valueOf(RandomBuilder.getRandomNumber(MAX_GRADE, MIN_GRADE))
                 .setScale(1, RoundingMode.HALF_UP)
                 .doubleValue();
     }
 
     private static Student createStudent(){
         return new Student.Builder()
-                .setGroupNumber("GN-" + (int)RandomBuilderInterface.getRandomNumber(MAX_NUMBER, MIN_NUMBER))
+                .setGroupNumber("GN-" + (int) RandomBuilder.getRandomNumber(MAX_NUMBER, MIN_NUMBER))
                 .setAverageGrade(createAverageGrade())
-                .setRecordBookNumber("RB" + (int)RandomBuilderInterface.getRandomNumber(MAX_RECORD_BOOK, MIN_RECORD_BOOK))
+                .setRecordBookNumber("RB" + (int) RandomBuilder.getRandomNumber(MAX_RECORD_BOOK, MIN_RECORD_BOOK))
                 .build();
     }
 

@@ -1,6 +1,6 @@
 package org.aston.model;
 
-public final class Bus extends BaseEntity {
+public final class Bus {
     private final String number;
     private final String model;
     private final int mileage;

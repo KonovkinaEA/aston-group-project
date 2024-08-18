@@ -1,6 +1,6 @@
 package org.aston.model;
 
-public final class Student extends BaseEntity {
+public final class Student {
     private final String groupNumber;
     private final double averageGrade;
     private final String recordBookNumber;
