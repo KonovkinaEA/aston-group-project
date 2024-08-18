@@ -5,38 +5,32 @@ import org.aston.model.Student;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class StudentManual implements IManualBuilder<Student>{
-    private Scanner scanner;
-    public StudentManual() {
-    }
-
+public class StudentManual implements ManualBuilder<Student> {
     @Override
-    public Student create() {
+    public Student create(Scanner scanner) {
         try {
-            System.out.println("Введите студент номер группы:");
-            String groupNumber = scanner.nextLine();
+            System.out.print("Введите студент номер группы (может содержать любые символы): ");
+            String groupNumber = scanner.next();
 
-            System.out.println("Введите средний балл студента:");
+            System.out.print("Введите средний балл студента (дробное число от 0 до 5, ex. 4.8): ");
             double averageGrade = scanner.nextDouble();
 
-            System.out.println("Введите номер зачетной книжки)");
-            scanner.nextLine();
-            String recordBookNumber = scanner.nextLine();
+            System.out.print("Введите номер зачетной книжки (может содержать любые символы): ");
+            String recordBookNumber = scanner.next();
 
             if (groupNumber.isEmpty() || averageGrade < 0 || averageGrade > 5 || recordBookNumber.isEmpty()) {
-                System.out.println("Неверные данные. Попробуйте еще раз.");
+                System.err.println("\nНеверные данные. Попробуйте еще раз.");
                 return null;
             } else {
+                System.out.println();
                 return new Student.Builder()
                         .setGroupNumber(groupNumber)
                         .setAverageGrade(averageGrade)
                         .setRecordBookNumber(recordBookNumber)
                         .build();
             }
-
         } catch (InputMismatchException e) {
-            System.out.println("Неверная запись, введите правильные данные.");
-            scanner.nextLine(); // Clean buffer
+            System.err.println("\nНеверная запись, введите правильные данные.");
             return null;
         }
     }

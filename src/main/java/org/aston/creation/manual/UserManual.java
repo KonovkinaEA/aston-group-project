@@ -4,26 +4,23 @@ import org.aston.model.User;
 
 import java.util.Scanner;
 
-public class UserManual implements IManualBuilder<User> {
-    private Scanner scanner;
-    public UserManual() {
-    }
-
+public class UserManual implements ManualBuilder<User> {
     @Override
-    public User create() {
-        System.out.println("Введите имя пользователя:");
-        String name = scanner.nextLine();
+    public User create(Scanner scanner) {
+        System.out.print("Введите имя пользователя: ");
+        String name = scanner.next();
 
-        System.out.println("Введите адрес электронной почты пользователя:");
-        String email = scanner.nextLine();
+        System.out.print("Введите адрес электронной почты пользователя: ");
+        String email = scanner.next();
 
-        System.out.println("Введите пароль пользователя:");
-        String password = scanner.nextLine();
+        System.out.print("Введите пароль пользователя (может содержать любые символы): ");
+        String password = scanner.next();
 
-        if (name.isEmpty() || !email.contains("@") || password.length() < 6) {
-            System.out.println("Неверные данные. Попробуйте еще раз.");
+        if (name.isEmpty() || !email.contains("@") || password.isEmpty()) {
+            System.out.println("\nНеверные данные. Попробуйте еще раз.");
             return null;
         } else {
+            System.out.println();
             return new User.Builder()
                     .setName(name)
                     .setEmail(email)
