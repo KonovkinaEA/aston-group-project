@@ -7,16 +7,17 @@ import java.util.List;
 
 public class SelectionSort<T> implements Sorting<T> {
     @Override
-    public List<?> sort(List<?> arr, Comparator<T> comparator){
-        List<?> sorted = new ArrayList<>(arr);
+    public List<T> sort(List<T> arr, Comparator<T> comparator) {
+        List<T> sorted = new ArrayList<>(arr);
+
         int n = sorted.size();
         for(int i = 0; i < n - 1; i++){
             int minIdx = i;
-            T minValue = (T)sorted.get(minIdx);
+            T minValue = sorted.get(minIdx);
             for(int j = i + 1; j < n; j++) {
-                if (comparator.compare((T)sorted.get(j), minValue) < 0) {
+                if (comparator.compare(sorted.get(j), minValue) < 0) {
                     minIdx = j;
-                    minValue = (T)sorted.get(minIdx);
+                    minValue = sorted.get(minIdx);
                 }
             }
             Collections.swap(sorted, i, minIdx);

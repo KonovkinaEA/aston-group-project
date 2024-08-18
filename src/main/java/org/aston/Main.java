@@ -6,15 +6,14 @@ import org.aston.creation.file.parsers.RecordParser;
 import org.aston.creation.file.parsers.StudentParser;
 import org.aston.creation.file.parsers.UserParser;
 import org.aston.creation.random.*;
-import org.aston.model.*;
 import org.aston.sorting.SelectionSort;
 import org.aston.sorting.Sorter;
-import org.aston.sorting.comparators.*;
+import org.aston.sorting.comparators.BusComparator;
+import org.aston.sorting.comparators.StudentComparator;
+import org.aston.sorting.comparators.UserComparator;
 
 import java.security.InvalidParameterException;
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
@@ -23,8 +22,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         ListManager<?> manager = null;
-        int classType = -1;
-
         while (true) {
             System.out.print("""
                     *************************** МЕНЮ **************************
@@ -39,7 +36,7 @@ public class Main {
                         4 - Заполнить коллекцию вручную
                         """);
                 if (!manager.getList().isEmpty()) {
-                    System.out.println("""
+                    System.out.print("""
                             5 - Отсортировать коллекцию
                             6 - Найти элемент в отсортированной коллекции
                             """);
@@ -59,11 +56,10 @@ public class Main {
                             2 - Student
                             3 - User
                             """);
-                    classType = scanner.nextInt();
-                    manager = createListManager(classType);
+                    manager = createListManager(scanner.nextInt());
                     break;
                 case 2:
-                    System.out.print("Введите количество элементов коллекции:");
+                    System.out.print("Введите количество элементов коллекции: ");
                     int size = scanner.nextInt();
                     if (manager != null) {
                         System.out.println("Сгенерированный список:");
@@ -83,36 +79,32 @@ public class Main {
                         System.out.println("Полученный из файла список:");
                         System.out.println(manager.readListFromFile(path));
                     }
+                    break;
                 case 5:
-                    System.out.println("Вы выбрали сортировку коллекции. Сортировка выполняется... ");
-                    Sorter<?> sorter = switch (classType){
-                        case 1 -> new Sorter<Bus>(new SelectionSort<>(), new BusComparator());
-                        case 2 -> new Sorter<Student>(new SelectionSort<>(), new StudentComparator());
-                        case 3 -> new Sorter<User>(new SelectionSort<>(), new UserComparator());
-                        default -> throw new InvalidParameterException("Введен номер несуществующего варианта");
-                    };
-
-                    List<?> sortedList = sorter.sort(manager.getList());
-
-                    System.out.println("Отсортированная коллекция:");
-                    System.out.println(Arrays.toString(sortedList.toArray()));
+                    if (manager != null) {
+                        System.out.println("Отсортированная коллекция:");
+                        System.out.println(manager.sort());
+                    }
+                    break;
             }
         }
     }
 
     private static ListManager<?> createListManager(int choice) {
         return switch (choice) {
-            case 1 -> createListManager(BusRandomBuilder::new, BusParser::new);
-            case 2 -> createListManager(StudentRandomBuilder::new, StudentParser::new);
-            case 3 -> createListManager(UserRandomBuilder::new, UserParser::new);
+            case 1 -> createListManager(BusRandomBuilder::new, BusParser::new, BusComparator::new);
+            case 2 -> createListManager(StudentRandomBuilder::new, StudentParser::new, StudentComparator::new);
+            case 3 -> createListManager(UserRandomBuilder::new, UserParser::new, UserComparator::new);
             default -> throw new InvalidParameterException("Введен номер несуществующего варианта");
         };
     }
 
     private static <T> ListManager<T> createListManager(Supplier<RandomBuilder<T>> randomBuilderSupplier,
-                                                        Supplier<RecordParser<T>> parserSupplier) {
+                                                        Supplier<RecordParser<T>> parserSupplier,
+                                                        Supplier<Comparator<T>> comparatorSupplier) {
         RandomCreator<T> randomCreator = (size) -> randomBuilderSupplier.get().createRandomList(size);
         FilesReader<T> filesReader = new FilesReader<>(parserSupplier.get());
-        return new ListManager<>(randomCreator, filesReader);
+        Sorter<T> sorter = new Sorter<>(new SelectionSort<>(), comparatorSupplier.get());
+        return new ListManager<>(randomCreator, filesReader, sorter);
     }
 }
