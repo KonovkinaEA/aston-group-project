@@ -4,7 +4,7 @@ import org.aston.model.Student;
 
 import java.util.Comparator;
 
-class StudentComparator implements Comparator<Student> {
+public class StudentComparator implements Comparator<Student> {
     @Override
     public int compare(Student s1, Student s2){
         int numberComparison = s1.getGroupNumber().compareTo(s2.getGroupNumber());
