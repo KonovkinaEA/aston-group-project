@@ -25,9 +25,9 @@ class StudentRandomBuilder implements RandomBuilderInterface{
 
     private static Student createStudent(){
         return new Student.Builder()
-                .setGroupNumber("GN-" + RandomBuilderInterface.getRandomNumber(MAX_NUMBER, MIN_NUMBER))
+                .setGroupNumber("GN-" + (int)RandomBuilderInterface.getRandomNumber(MAX_NUMBER, MIN_NUMBER))
                 .setAverageGrade(createAverageGrade())
-                .setRecordBookNumber("RB" + RandomBuilderInterface.getRandomNumber(MAX_RECORD_BOOK, MIN_RECORD_BOOK))
+                .setRecordBookNumber("RB" + (int)RandomBuilderInterface.getRandomNumber(MAX_RECORD_BOOK, MIN_RECORD_BOOK))
                 .build();
     }
 

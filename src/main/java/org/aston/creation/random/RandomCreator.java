@@ -9,7 +9,7 @@ public class RandomCreator {
     private static RandomBuilderInterface randomBuilderInterface;
 
     public static List<?> getRandomList(int limit){
-        int choice = RandomBuilderInterface.getRandomNumber(MAX_CHOICE, MIN_CHOICE);
+        int choice = (int)RandomBuilderInterface.getRandomNumber(MAX_CHOICE, MIN_CHOICE);
 
         switch (choice) {
             case 1:

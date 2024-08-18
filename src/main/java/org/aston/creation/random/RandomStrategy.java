@@ -1,4 +1,4 @@
-package org.aston.random_creation;
+package org.aston.creation.random;
 
 public class RandomStrategy {
     RandomBuilderInterface randomBuilderInterface;

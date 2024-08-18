@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 class UserRandomBuilder implements RandomBuilderInterface{
 
+    private static final int ZERO = 0;
     private static final int MIN_LIMIT = 48; // letter 'a' = 97, 'A' = 65
     private static final int MAX_LIMIT = 122; // letter 'z' = 122, 'Z' = 90
     private static final int PASSWORD_LENGTH = 8;
@@ -25,7 +26,7 @@ class UserRandomBuilder implements RandomBuilderInterface{
     }
 
     private static String createUserName(){
-        return USER_NAME.get(RandomBuilderInterface.getRandomNumber(USER_NAME.size()));
+        return USER_NAME.get((int) RandomBuilderInterface.getRandomNumber(USER_NAME.size(), ZERO));
     }
 
     private static User createUser() {
@@ -34,7 +35,7 @@ class UserRandomBuilder implements RandomBuilderInterface{
         return new User.Builder()
                 .setName(name)
                 .setPassword(createPassword())
-                .setEmail(name + RandomBuilderInterface.getRandomNumber(MAX_EMAIL_NUMBER) + "@mail.com")
+                .setEmail(name + (int)RandomBuilderInterface.getRandomNumber(MAX_EMAIL_NUMBER, ZERO) + "@mail.com")
                 .build();
     }
 
