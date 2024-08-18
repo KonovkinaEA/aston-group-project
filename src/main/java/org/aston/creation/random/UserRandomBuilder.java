@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
-class UserRandomBuilder{
+class UserRandomBuilder implements RandomBuilderInterface{
 
+    private static final int ZERO = 0;
     private static final int MIN_LIMIT = 48; // letter 'a' = 97, 'A' = 65
     private static final int MAX_LIMIT = 122; // letter 'z' = 122, 'Z' = 90
     private static final int PASSWORD_LENGTH = 8;
+    private static final int MAX_EMAIL_NUMBER = 100;
     private static final List<String> USER_NAME = UserNameEnum.getAllUserNames();
 
 
@@ -24,7 +26,7 @@ class UserRandomBuilder{
     }
 
     private static String createUserName(){
-        return USER_NAME.get((int) (Math.random() * USER_NAME.size()));
+        return USER_NAME.get((int) RandomBuilderInterface.getRandomNumber(USER_NAME.size(), ZERO));
     }
 
     private static User createUser() {
@@ -33,12 +35,13 @@ class UserRandomBuilder{
         return new User.Builder()
                 .setName(name)
                 .setPassword(createPassword())
-                .setEmail(name + (int) (Math.random() * 100) + "@mail.com")
+                .setEmail(name + (int)RandomBuilderInterface.getRandomNumber(MAX_EMAIL_NUMBER, ZERO) + "@mail.com")
                 .build();
     }
 
 
-    static List<User> createRandomList(int limit) {
+    @Override
+    public List<User> createRandomList(int limit) {
 
         return Stream.generate(UserRandomBuilder::createUser)
                 .limit(limit)
