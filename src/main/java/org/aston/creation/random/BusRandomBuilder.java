@@ -5,7 +5,7 @@ import org.aston.model.Bus;
 import java.util.List;
 import java.util.stream.Stream;
 
-class BusRandomBuilder implements RandomBuilderInterface{
+class BusRandomBuilder implements RandomBuilderInterface {
     private static final List<String> BUS_MODEL = BusModelEnum.getAllModels();
 
     private static final int MIN_NUMBER = 100;
