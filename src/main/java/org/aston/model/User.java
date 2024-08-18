@@ -1,6 +1,6 @@
 package org.aston.model;
 
-public final class User extends BaseEntity {
+public final class User {
     private final String name;
     private final String password;
     private final String email;
