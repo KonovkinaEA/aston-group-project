@@ -12,7 +12,7 @@ public class Sorter<T> {
         this.comparator = comparator;
     }
 
-    public List<T> sort(List<T> arr){
+    public List<T> sort(List<T> arr) {
         return sortingStrategy.sort(arr, comparator);
     }
 }
