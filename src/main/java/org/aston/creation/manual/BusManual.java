@@ -19,7 +19,7 @@ public class BusManual implements ManualBuilder<Bus> {
             int mileage = scanner.nextInt();
 
             if (number.isEmpty() || model.isEmpty() || mileage < 0) {
-                System.err.println("\nНеверные данные. Попробуйте еще раз.");
+                System.out.println("\nНеверные данные. Попробуйте еще раз.");
                 return null;
             } else {
                 System.out.println();
@@ -30,7 +30,7 @@ public class BusManual implements ManualBuilder<Bus> {
                         .build();
             }
         } catch (InputMismatchException e) {
-            System.err.println("\nНеверная запись, введите правильные данные.");
+            System.out.println("\nНеверная запись, введите правильные данные.");
             return null;
         }
     }

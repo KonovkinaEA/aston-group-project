@@ -19,7 +19,7 @@ public class StudentManual implements ManualBuilder<Student> {
             String recordBookNumber = scanner.next();
 
             if (groupNumber.isEmpty() || averageGrade < 0 || averageGrade > 5 || recordBookNumber.isEmpty()) {
-                System.err.println("\nНеверные данные. Попробуйте еще раз.");
+                System.out.println("\nНеверные данные. Попробуйте еще раз.");
                 return null;
             } else {
                 System.out.println();
@@ -30,7 +30,7 @@ public class StudentManual implements ManualBuilder<Student> {
                         .build();
             }
         } catch (InputMismatchException e) {
-            System.err.println("\nНеверная запись, введите правильные данные.");
+            System.out.println("\nНеверная запись, введите правильные данные.");
             return null;
         }
     }

@@ -15,6 +15,8 @@ import org.aston.sorting.Sorter;
 import org.aston.sorting.comparators.BusComparator;
 import org.aston.sorting.comparators.StudentComparator;
 import org.aston.sorting.comparators.UserComparator;
+import org.aston.usecase.BinarySearch;
+import org.aston.usecase.Search;
 
 import java.security.InvalidParameterException;
 import java.util.Comparator;
@@ -27,29 +29,7 @@ public class Main {
 
         ListManager<?> manager = null;
         while (true) {
-            System.out.print("""
-                    *************************** МЕНЮ **************************
-                    Чтобы выбрать следующий шаг, введите соответствующую цифру:
-                    0 - Завершить программу
-                    1 - Задать базовые параметры коллекции
-                    """);
-            if (manager != null) {
-                System.out.print("""
-                        2 - Заполнить коллекцию случайно сгенерированными данными
-                        3 - Заполнить коллекцию данными из файла
-                        4 - Заполнить коллекцию вручную
-                        """);
-                if (!manager.getList().isEmpty()) {
-                    System.out.print("""
-                            5 - Отсортировать коллекцию
-                            6 - Найти элемент в отсортированной коллекции
-                            """);
-                }
-            }
-            System.out.print("""
-                    ***********************************************************
-                    """);
-
+            printMenu(manager);
             switch (scanner.nextInt()) {
                 case 0:
                     return;
@@ -63,41 +43,63 @@ public class Main {
                     manager = createListManager(scanner.nextInt());
                     break;
                 case 2:
-                    System.out.print("Введите количество элементов коллекции: ");
-                    int size = scanner.nextInt();
                     if (manager != null) {
+                        System.out.print("Введите количество элементов коллекции: ");
+                        int size = scanner.nextInt();
+
                         System.out.println("Сгенерированный список:");
                         System.out.println(manager.generateRandomList(size));
+                    } else {
+                        printInvalidChoice();
                     }
                     break;
                 case 3:
-                    System.out.println("""
+                    if (manager != null) {
+                        System.out.println("""
                             В файле запись по каждому классу должна быть на новой строчке, сама запись должна выглядеть так:
                             [Bus/Student/User] = [Данные],[Данные],[Данные]
                             Пример:
                             Student = 2024,4.5,45180
                             """);
-                    System.out.println("Введите путь к файлу:");
-                    String path = scanner.next();
-                    if (manager != null) {
+                        System.out.println("Введите путь к файлу:");
+                        String path = scanner.next();
+
                         System.out.println("Полученный из файла список:");
                         System.out.println(manager.readListFromFile(path));
+                    } else {
+                        printInvalidChoice();
                     }
                     break;
                 case 4:
-                    System.out.print("Введите количество элементов коллекции: ");
-                    int manualSize = scanner.nextInt();
                     if (manager != null) {
+                        System.out.print("Введите количество элементов коллекции: ");
+                        int manualSize = scanner.nextInt();
+
                         manager.manualCreation(scanner, manualSize);
                         System.out.println(manager.getList());
+                    } else {
+                        printInvalidChoice();
                     }
                     break;
                 case 5:
-                    if (manager != null) {
+                    if (manager != null && !manager.getList().isEmpty()) {
                         System.out.println("Отсортированная коллекция:");
                         System.out.println(manager.sort());
+                    } else {
+                        printInvalidChoice();
                     }
                     break;
+                case 6:
+                    if (manager != null && !manager.getList().isEmpty()) {
+                        System.out.println("Введите элемент для поиска:");
+                        int index = manager.search(scanner);
+                        System.out.println("Номер элемента в коллекции - " + index);
+                    } else {
+                        printInvalidChoice();
+                    }
+                    break;
+                default:
+                    printInvalidChoice();
             }
         }
     }
@@ -118,7 +120,39 @@ public class Main {
         RandomCreator<T> randomCreator = (size) -> randomBuilderSupplier.get().createRandomList(size);
         FilesReader<T> filesReader = new FilesReader<>(parserSupplier.get());
         ManualBuilder<T> manualBuilder = manualBuilderSupplier.get();
+
         Sorter<T> sorter = new Sorter<>(new SelectionSort<>(), comparatorSupplier.get());
-        return new ListManager<>(randomCreator, filesReader, manualBuilder, sorter);
+        Search<T> search = new BinarySearch<>(comparatorSupplier.get());
+
+        return new ListManager<>(randomCreator, filesReader, manualBuilder, sorter, search);
+    }
+
+    private static void printMenu(ListManager<?> manager) {
+        System.out.print("""
+                *************************** МЕНЮ **************************
+                Чтобы выбрать следующий шаг, введите соответствующую цифру:
+                0 - Завершить программу
+                1 - Задать базовые параметры коллекции
+                """);
+        if (manager != null) {
+            System.out.print("""
+                    2 - Заполнить коллекцию случайно сгенерированными данными
+                    3 - Заполнить коллекцию данными из файла
+                    4 - Заполнить коллекцию вручную
+                    """);
+            if (!manager.getList().isEmpty()) {
+                System.out.print("""
+                        5 - Отсортировать коллекцию
+                        6 - Найти элемент в коллекции
+                        """);
+            }
+        }
+        System.out.print("""
+                ***********************************************************
+                """);
+    }
+
+    private static void printInvalidChoice() {
+        System.out.println("Такого пункта в меню нет, выберете снова");
     }
 }
