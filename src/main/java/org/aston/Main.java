@@ -11,10 +11,7 @@ import org.aston.sorting.comparators.*;
 import org.aston.sorting.Sorter;
 import org.aston.sorting.SelectionSort;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Arrays;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -93,14 +90,14 @@ public class Main {
                         break;
                     case 5:
                         System.out.println("Вы выбрали сортировку. Производится сортировка коллекции...");
-                        Comparator<BaseEntity> comparator = switch (tCLass){
-                            case "Bus" -> new BusNumComparator();
-                            case "Student" -> new StudentNumComparator();
+                        Comparator<? extends BaseEntity> comparator = switch (tCLass){
+                            case "Bus" -> new BusComparator();
+                            case "Student" -> new StudentComparator();
                             case "User" -> new UserComparator();
                             default -> throw new IllegalStateException("Unexpected value: " + tCLass);
                         };
-                        Sorter<BaseEntity> sorter = new Sorter<BaseEntity>(new SelectionSort<BaseEntity>());
-                        List<BaseEntity> sortedList = sorter.sort(list, comparator);
+                        Sorter<BaseEntity> sorter = new Sorter<>(new SelectionSort<>());
+                        List<BaseEntity> sortedList = sorter.sort(list, (Comparator<BaseEntity>) comparator);
                         System.out.println("Отсортированная коллекция:");
                         System.out.println(Arrays.toString(sortedList.toArray()));
 
