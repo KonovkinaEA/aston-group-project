@@ -93,7 +93,11 @@ public class Main {
                     if (manager != null && !manager.getList().isEmpty()) {
                         System.out.println("Введите элемент для поиска:");
                         int index = manager.search(scanner);
-                        System.out.println("Номер элемента в коллекции - " + index);
+                        if (index < 0) {
+                            System.out.println("Элемент не найден.");
+                        } else {
+                            System.out.println("Номер элемента в коллекции - " + index);
+                        }
                     } else {
                         printInvalidChoice();
                     }
